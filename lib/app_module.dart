@@ -1,6 +1,6 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:giflex_app/screen/artifact-set-show/app_module_artifact_set_show.dart';
 import 'package:giflex_app/screen/artifact/app_module_artifact.dart';
+import 'package:giflex_app/screen/artifact_set_show/app_module_artifact_set_show.dart';
 import 'package:giflex_app/screen/character/app_module_character.dart';
 import 'package:giflex_app/screen/home/home.dart';
 import 'package:giflex_app/screen/images/app_module_images.dart';

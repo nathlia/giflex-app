@@ -1,5 +1,4 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:giflex_app/screen/images/images.dart';
 import 'package:giflex_app/screen/showcase/showcase.dart';
 
 class AppModuleShowcase extends Module {

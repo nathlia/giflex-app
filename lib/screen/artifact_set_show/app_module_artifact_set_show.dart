@@ -1,5 +1,5 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:giflex_app/screen/artifact-set-show/artifact_set_show.dart';
+import 'package:giflex_app/screen/artifact_set_show/artifact_set_show.dart';
 
 class AppModuleArtifactSetShow extends Module {
   @override

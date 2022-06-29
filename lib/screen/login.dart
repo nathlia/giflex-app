@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:giflex_app/router.dart';
 
 class Login extends StatelessWidget {
   Login({Key? key}) : super(key: key);
@@ -14,10 +15,10 @@ class Login extends StatelessWidget {
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(
             brightness: Brightness.dark,
-            primarySwatch: Colors.blueGrey,
+            primarySwatch: Palette.myColor,
           ).copyWith(
-            primary: Colors.pink,
-            secondary: Colors.pink[100],
+            primary: Palette.myColor[50],
+            secondary: Palette.myColor[100],
           ),
           textTheme: const TextTheme(bodyText2: TextStyle(color: Colors.white)),
         ),
