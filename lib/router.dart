@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
-class Compra extends StatelessWidget {
-  const Compra({Key? key}) : super(key: key);
+class AppRouter extends StatelessWidget {
+  const AppRouter({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
