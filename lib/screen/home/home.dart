@@ -137,6 +137,7 @@ Widget _buildCard(String name, String imgPath) {
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
                         ),
                       )
                     ]),

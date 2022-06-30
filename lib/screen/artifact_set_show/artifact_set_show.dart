@@ -26,74 +26,62 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
           backgroundColor: Palette.myColor[300],
         ),
         body: SingleChildScrollView(
-          padding: const EdgeInsets.only(left: 5.0, top: 20.0),
+          padding: const EdgeInsets.only(
+              left: 5.0, top: 20.0, right: 5.0, bottom: 20.0),
           child: Column(
             children: <Widget>[
+              // * ~~~ Character Card ~~~ *
               Container(
-                height: 211,
-                color: Palette.myColor[300],
-                child: Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 168,
-                      child: _buildCard(name, './assets/characters/$name.png'),
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: const BorderRadius.only(
-                              bottomLeft: Radius.circular(15.0),
-                              bottomRight: Radius.circular(15.0)),
-                          color: Palette.myColor[300]),
-                      width: 216,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
+                  decoration: BoxDecoration(
+                      borderRadius: const BorderRadius.all(
+                        Radius.circular(15.0),
+                      ),
+                      color: Palette.myColor[300]),
+                  height: 211,
+                  child: InkWell(
+                    onTap: () {
+                      Modular.to.pushNamed('/character/');
+                    },
+                    child: Row(
+                      children: <Widget>[
+                        SizedBox(
+                          width: 166,
+                          child:
+                              _buildCard(name, './assets/characters/$name.png'),
+                        ),
+                        SizedBox(
+                          width: 216,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
-                              Text("Level: $level",
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              const SizedBox(height: 15.0),
-                              Text("Crit Rate: $critRate",
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              const SizedBox(height: 15.0),
-                              Text("Crit Dmg: $critDmg",
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  )),
+                              Column(
+                                children: <Widget>[
+                                  Text("Level: $level",
+                                      style: const TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                  const SizedBox(height: 15.0),
+                                  Text("Crit Rate: $critRate",
+                                      style: const TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                  const SizedBox(height: 15.0),
+                                  Text("Crit Dmg: $critDmg",
+                                      style: const TextStyle(
+                                        fontSize: 20.0,
+                                        fontWeight: FontWeight.bold,
+                                      )),
+                                ],
+                              )
                             ],
-                          )
-                        ],
-                      ),
+                          ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Column(
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.symmetric(vertical: 50.0),
-                    width: double.infinity,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 5,
-                      ),
-                      onPressed: () {
-                        log('Pressed');
-                        //int id = 1;
-                        Modular.to.pushNamed('/character');
-                      },
-                      child: const Text('Character'),
-                    ),
-                  )
-                ],
-              ),
+                  )),
+              // * ~~~ Artifacts ~~~ *
               Column(
                 children: <Widget>[
                   Container(
@@ -177,6 +165,7 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
                           style: const TextStyle(
                             color: Colors.white,
                             fontSize: 24.0,
+                            fontWeight: FontWeight.bold,
                           ),
                         )
                       ]),
