@@ -2,7 +2,9 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:giflex_app/app-core/model/artifact.dart';
 import 'package:giflex_app/router.dart';
+import 'package:giflex_app/screen/artifact/artifact.dart';
 
 class ArtifactSetShow extends StatefulWidget {
   const ArtifactSetShow({Key? key}) : super(key: key);
@@ -17,108 +19,157 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
   double critRate = 76.9;
   double critDmg = 186.5;
 
+  ArtifactModel a1 =
+      ArtifactModel(1, "Flower", "Gladiator's Finale", "HP", 2000);
+  ArtifactModel a2 =
+      ArtifactModel(2, "Plume", "Gladiator's Finale", "ATK", 4200);
+
+  int id = 1;
+  String artifactType = "Flower";
+  String artifactSetType = "Gladiator's Finale";
+  String mainstat = "HP";
+  double mainStatValue = 2000;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Palette.myColor[400],
-        appBar: AppBar(
-          title: const Text('Artifact Set Show'),
-          backgroundColor: Palette.myColor[300],
-        ),
-        body: SingleChildScrollView(
-          padding: const EdgeInsets.only(
-              left: 5.0, top: 20.0, right: 5.0, bottom: 20.0),
-          child: Column(
-            children: <Widget>[
+      backgroundColor: Palette.myColor[400],
+      appBar: AppBar(
+        title: const Text('Artifact Set Show'),
+        backgroundColor: Palette.myColor[300],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.only(
+            left: 5.0, top: 20.0, right: 5.0, bottom: 20.0),
+        child: Column(children: <Widget>[
+          Container(
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(15.0),
+                  ),
+                  color: Palette.myColor[300]),
               // * ~~~ Character Card ~~~ *
-              Container(
-                  decoration: BoxDecoration(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(15.0),
-                      ),
-                      color: Palette.myColor[300]),
-                  height: 211,
-                  child: InkWell(
-                    onTap: () {
-                      Modular.to.pushNamed('/character/');
-                    },
-                    child: Row(
-                      children: <Widget>[
-                        SizedBox(
-                          width: 166,
-                          child:
-                              _buildCard(name, './assets/characters/$name.png'),
-                        ),
-                        SizedBox(
-                          width: 216,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Column(
-                                children: <Widget>[
-                                  Text("Level: $level",
-                                      style: const TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                  const SizedBox(height: 15.0),
-                                  Text("Crit Rate: $critRate",
-                                      style: const TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                  const SizedBox(height: 15.0),
-                                  Text("Crit Dmg: $critDmg",
-                                      style: const TextStyle(
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold,
-                                      )),
-                                ],
-                              )
-                            ],
-                          ),
-                        ),
-                      ],
+              height: 211,
+              child: InkWell(
+                onTap: () {
+                  Modular.to.pushNamed('/character/');
+                },
+                child: Row(
+                  children: <Widget>[
+                    SizedBox(
+                      width: 166,
+                      child: _buildCard(name, './assets/characters/$name.png'),
                     ),
-                  )),
-              // * ~~~ Artifacts ~~~ *
-              Column(
-                children: <Widget>[
-                  Container(
-                      padding: const EdgeInsets.symmetric(vertical: 50.0),
-                      width: double.infinity,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            elevation: 5,
-                          ),
-                          onPressed: () {
-                            //onClickLogin(context);
-                            debugPrint('Artifact');
-                            Modular.to.pushNamed('/artifact');
-                          },
-                          child: const Text('Artifact')))
-                ],
-              ),
-              Column(
-                children: <Widget>[
-                  Container(
-                      padding: const EdgeInsets.symmetric(vertical: 50.0),
-                      width: double.infinity,
-                      child: ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            elevation: 5,
-                          ),
-                          onPressed: () {
-                            //onClickLogin(context);
-                            debugPrint('Artifact');
-                            Modular.to.pushNamed('/images');
-                          },
-                          child: const Text('Create Showcase')))
-                ],
-              ),
+                    SizedBox(
+                      width: 216,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              Text("Level: $level",
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              const SizedBox(height: 15.0),
+                              Text("Crit Rate: $critRate",
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              const SizedBox(height: 15.0),
+                              Text("Crit Dmg: $critDmg",
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              )),
+          // * ~~~ Artifacts ~~~ *
+          Container(
+            padding: const EdgeInsets.only(
+                top: 16.0, bottom: 0.2, left: 5.0, right: 5.0),
+            child: Text("${a1.artifactType} :",
+                style: const TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                )),
+          ),
+          Container(
+              width: 200.0,
+              decoration: BoxDecoration(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(15.0),
+                  ),
+                  color: Palette.myColor[300]),
+              padding: const EdgeInsets.only(
+                  left: 5.0, right: 5.0, top: 10.0, bottom: 20.0),
+              child: InkWell(
+                  onTap: () {
+                    Modular.to.pushNamed('/artifact/');
+                  },
+                  child: Column(
+                    children: <Widget>[
+                      Divider(
+                        color: Palette.myColor[50],
+                        height: 3,
+                      ),
+                      Text(a1.artifactSetType,
+                          style: const TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      Divider(
+                        color: Palette.myColor[50],
+                        height: 3,
+                      ),
+                      Text(a1.mainstat,
+                          style: const TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      Divider(
+                        color: Palette.myColor[50],
+                        height: 3,
+                      ),
+                      Text("$mainStatValue",
+                          style: const TextStyle(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                          )),
+                      Divider(
+                        color: Palette.myColor[50],
+                        height: 3,
+                      ),
+                    ],
+                  ))),
+          Column(
+            children: <Widget>[
+              Container(
+                  padding: const EdgeInsets.symmetric(vertical: 50.0),
+                  width: double.infinity,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 5,
+                      ),
+                      onPressed: () {
+                        //onClickLogin(context);
+                        debugPrint('Artifact');
+                        Modular.to.pushNamed('/images/');
+                      },
+                      child: const Text('Create Showcase')))
             ],
           ),
-        ));
+        ]),
+      ),
+    );
   }
 
   Widget _buildCard(String name, String imgPath) {

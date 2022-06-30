@@ -23,8 +23,10 @@ class Login extends StatelessWidget {
           textTheme: const TextTheme(bodyText2: TextStyle(color: Colors.white)),
         ),
         home: Scaffold(
+            backgroundColor: Palette.myColor[400],
             appBar: AppBar(
               title: const Text('Login'),
+              backgroundColor: Palette.myColor[300],
             ),
             body: SingleChildScrollView(
               child: Column(
