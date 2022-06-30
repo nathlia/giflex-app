@@ -63,7 +63,7 @@ class Login extends StatelessWidget {
                             ),
                             onPressed: () {
                               log('Pressed');
-                              Modular.to.pushNamed('/');
+                              Modular.to.pushNamed('/home');
                             },
                             child: const Text('Login'),
                           ),
@@ -71,23 +71,23 @@ class Login extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Column(
-                    children: <Widget>[
-                      Container(
-                          padding: const EdgeInsets.symmetric(vertical: 50.0),
-                          width: double.infinity,
-                          child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                elevation: 5,
-                              ),
-                              onPressed: () {
-                                //onClickLogin(context);
-                                debugPrint('Pressed Login Simple');
-                                Modular.to.navigate('/home');
-                              },
-                              child: const Text('Login Simple')))
-                    ],
-                  )
+                  // Column(
+                  //   children: <Widget>[
+                  //     Container(
+                  //         padding: const EdgeInsets.symmetric(vertical: 50.0),
+                  //         width: double.infinity,
+                  //         child: ElevatedButton(
+                  //             style: ElevatedButton.styleFrom(
+                  //               elevation: 5,
+                  //             ),
+                  //             onPressed: () {
+                  //               //onClickLogin(context);
+                  //               debugPrint('Pressed Login Simple');
+                  //               Modular.to.navigate('/home');
+                  //             },
+                  //             child: const Text('Login Simple')))
+                  //   ],
+                  // )
                 ],
               ),
             )));
