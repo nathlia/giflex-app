@@ -1,4 +1,5 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
@@ -95,10 +96,10 @@ class _HomeState extends State<Home> {
 Widget _buildCard(String name, String imgPath) {
   return Padding(
       padding:
-          const EdgeInsets.only(top: 5.0, bottom: 5.0, left: 5.0, right: 5.0),
+          const EdgeInsets.only(top: 10.0, bottom: 0.2, left: 5.0, right: 5.0),
       child: InkWell(
         onTap: () {
-          Modular.to.pushNamed('/artifact-set-show');
+          Modular.to.pushNamed('/artifact-set-show/');
         },
         child: Container(
           decoration: BoxDecoration(
@@ -115,19 +116,31 @@ Widget _buildCard(String name, String imgPath) {
               Hero(
                   tag: imgPath,
                   child: Container(
-                      height: 75.0,
-                      width: 75.0,
+                      height: 163.0,
+                      width: 256.0,
                       decoration: BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage(imgPath),
                               fit: BoxFit.contain)))),
-              Text(
-                name,
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 24.0,
-                ),
-              )
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(15.0),
+                        bottomRight: Radius.circular(15.0)),
+                    color: Palette.myColor[600]),
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        name,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24.0,
+                        ),
+                      )
+                    ]),
+              ),
             ],
           ),
         ),

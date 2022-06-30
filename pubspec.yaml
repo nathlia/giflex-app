@@ -67,7 +67,6 @@ flutter:
   assets:
     - assets/
     - assets/characters/
-    - assets/icons
     - assets/showcase/
 
   # An image asset can refer to one or more resolution-specific "variants", see
