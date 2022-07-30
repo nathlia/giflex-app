@@ -67,6 +67,7 @@ flutter:
   assets:
     - assets/
     - assets/characters/
+    - assets/showcase/
     - assets/showcase/Xiao/1.png
     - assets/showcase/Xiao/2.jpg
     - assets/showcase/Xiao/3.jpg

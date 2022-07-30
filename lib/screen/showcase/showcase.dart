@@ -18,10 +18,15 @@ class _ShowcaseState extends State<Showcase> {
   double critRate = 76.9;
   double critDmg = 186.5;
 
-  ArtifactModel a1 =
-      ArtifactModel(1, "Flower", "Gladiator's Finale", "HP", 2000);
-  ArtifactModel a2 =
-      ArtifactModel(2, "Plume", "Gladiator's Finale", "ATK", 4200);
+  // ArtifactModel a1 =
+  //     ArtifactModel(1, "Flower", "Gladiator's Finale", "HP", 2000);
+  // ArtifactModel a2 =
+  //     ArtifactModel(2, "Plume", "Gladiator's Finale", "ATK", 4200);
+
+  int id = 1;
+  String artifactType = "Flower";
+  String artifactSetType = "Gladiator's Finale";
+  String mainstat = "HP";
   double mainStatValue = 2000;
   @override
   Widget build(BuildContext context) {
@@ -84,7 +89,7 @@ class _ShowcaseState extends State<Showcase> {
                 Container(
                   padding: const EdgeInsets.only(
                       top: 16.0, bottom: 0.2, left: 5.0, right: 5.0),
-                  child: Text("${a1.artifactType} :",
+                  child: Text("${artifactType} :",
                       style: const TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
@@ -105,7 +110,7 @@ class _ShowcaseState extends State<Showcase> {
                           color: Palette.myColor[50],
                           height: 3,
                         ),
-                        Text(a1.artifactSetType,
+                        Text(artifactSetType,
                             style: const TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
@@ -114,7 +119,7 @@ class _ShowcaseState extends State<Showcase> {
                           color: Palette.myColor[50],
                           height: 3,
                         ),
-                        Text(a1.mainstat,
+                        Text(mainstat,
                             style: const TextStyle(
                               fontSize: 18.0,
                               fontWeight: FontWeight.bold,
