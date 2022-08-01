@@ -24,11 +24,11 @@ class CharacterPersistence {
       '$_col_id integer not null primary key, '
       '$_col_name text, '
       '$_col_level text, '
-      '$_col_critrate text), '
+      '$_col_critrate text, '
       '$_col_critdmg text'
       ' )';
 
-  Future<void> add(CharacterModel c) async {
+  add(CharacterModel c) async {
     log('Saving character: ${c.name}');
 
     final db = await getDatabase();
@@ -41,10 +41,9 @@ class CharacterPersistence {
     final db = await getDatabase();
     final List<Map<String, dynamic>> maps = await db.query(_tableName);
 
-    List.generate(maps.length, (i) {
+    return List.generate(maps.length, (i) {
       return CharacterModel.fromJson(maps[i]);
     });
-    throw Exception();
   }
 
   Future close() async {

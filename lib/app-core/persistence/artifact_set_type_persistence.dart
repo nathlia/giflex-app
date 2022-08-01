@@ -38,7 +38,7 @@ class ArtifactSetTypePersistence {
       "$_col_id integer not null primary key, "
       "$_col_name text, "
       "$_col_twopieces text, "
-      "$_col_fourpieces text), "
+      "$_col_fourpieces text "
       " )";
 
   Future<List<ArtifactSetTypeModel>> getArtifactSetType() async {

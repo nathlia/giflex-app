@@ -29,7 +29,7 @@ class ArtifactPersistence {
       '$_col_id integer not null primary key, '
       '$_col_artifactsettypeid integer, '
       '$_col_artifacttypeid integer, '
-      '$_col_mainstatid integer), '
+      '$_col_mainstatid integer, '
       '$_col_mainstatvalue double precision'
       '$_col_is_equipped boolean'
       ' )';

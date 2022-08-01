@@ -25,7 +25,7 @@ class ArtifactTypePersistence {
   */
   static const createTableArtifactType = " CREATE TABLE $_tableName ("
       "$_col_id integer not null primary key, "
-      "$_col_name text, "
+      "$_col_name text "
       " ) ";
 
   Future<List<ArtifactSetTypeModel>> getArtifactType() async {

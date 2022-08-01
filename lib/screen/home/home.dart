@@ -14,18 +14,15 @@ class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-_initBanco() {
-  CharacterModel c = CharacterModel(
-      id: 1, name: 'Xiao', level: '90', critRate: '78.5', critDmg: '186.6');
-
-  CharacterPersistence().add(c);
-}
-
 class _HomeState extends State<Home> {
   String name = "Xiao";
 
   @override
   Widget build(BuildContext context) {
+    CharacterModel c;
+    c = CharacterModel(
+        id: 1, name: 'Xiao', level: '90', critRate: '78.5', critDmg: '186.6');
+    CharacterPersistence().add(c);
     return Scaffold(
       backgroundColor: Palette.myColor[400],
       appBar: AppBar(
@@ -42,29 +39,7 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.only(right: 15.0),
               width: MediaQuery.of(context).size.width - 30.0,
               height: MediaQuery.of(context).size.height - 50.0,
-              child: Column(
-                children: [_initBanco(), _futureBuilderCharacter()],
-              )
-
-              // GridView.count(
-              //   crossAxisCount: 2,
-              //   primary: false,
-              //   crossAxisSpacing: 10.0,
-              //   mainAxisSpacing: 15.0,
-              //   childAspectRatio: 0.8,
-              //   children: <Widget>[
-              //     _buildCard(name, './assets/characters/$name.png'),
-              //     _buildCard(
-              //       'Tartaglia',
-              //       './assets/characters/Tartaglia.png',
-              //     ),
-              //     _buildCard('Albedo', './assets/characters/Albedo.png'),
-              //     _buildCard('Diluc', './assets/characters/Diluc.png'),
-              //     _buildCard('Zhongli', './assets/characters/Zhongli.png'),
-              //     _buildCard('Kazuha', './assets/characters/Kazuha.png'),
-              //   ],
-              // )
-              ),
+              child: _futureBuilderCharacter()),
           Column(
             children: <Widget>[
               Container(
@@ -131,38 +106,36 @@ Widget _futureBuilderCharacter() {
         case ConnectionState.done:
           final List<CharacterModel> characters =
               snapshot.data as List<CharacterModel>;
-          return ListView.builder(
-            itemBuilder: (context, index) {
-              final CharacterModel c = characters[index];
-              String? name = c.name;
-              return Row(
-                children: [
-                  GridView.count(
-                    crossAxisCount: 2,
-                    primary: false,
-                    crossAxisSpacing: 10.0,
-                    mainAxisSpacing: 15.0,
-                    childAspectRatio: 0.8,
-                    children: <Widget>[
-                      _buildCard(name!, './assets/characters/$c.name.png'),
-                      // _buildCard(
-                      //   'Tartaglia',
-                      //   './assets/characters/Tartaglia.png',
-                      // ),
-                      // _buildCard('Albedo', './assets/characters/Albedo.png'),
-                      // _buildCard('Diluc', './assets/characters/Diluc.png'),
-                      // _buildCard('Zhongli', './assets/characters/Zhongli.png'),
-                      // _buildCard('Kazuha', './assets/characters/Kazuha.png'),
-                    ],
-                  )
-                ],
-              );
-            },
-            itemCount: characters.length,
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Flexible(
+                  child: ListView.builder(
+                itemBuilder: (context, index) {
+                  final CharacterModel c = characters[index];
+                  String? name = c.name;
+                  log('$name');
+                  return _charactersTray(name!);
+                },
+                itemCount: characters.length,
+              ))
+            ],
           );
       }
       return const Text('Error occurred trying to list Characters.');
     },
+  );
+}
+
+Widget _charactersTray(String name) {
+  return GridView.count(
+    shrinkWrap: true,
+    crossAxisCount: 2,
+    primary: false,
+    crossAxisSpacing: 10.0,
+    mainAxisSpacing: 15.0,
+    childAspectRatio: 0.8,
+    children: <Widget>[_buildCard(name, './assets/characters/$name.png')],
   );
 }
 

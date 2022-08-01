@@ -17,6 +17,11 @@ class CharacterModel {
     //required this.equippedArtifacts
   });
 
+  @override
+  String toString() {
+    return 'CharacterModel(id: $id, name: $name, level: $level, critRate: $critRate, critDmg: $critDmg)';
+  }
+
   Map<String, dynamic> toJson() {
     return {
       'id': id,

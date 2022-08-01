@@ -22,9 +22,9 @@ class ArtifactSubstatPersistence {
 */
 
   static const createTableArtifactSubstat = ' CREATE TABLE $_tableName ('
-      '$_col_artifact_id integer not null'
-      '$_col_substat_id integer not null'
-      '$_col_substatvalue double precision), '
+      '$_col_artifact_id integer not null, '
+      '$_col_substat_id integer not null, '
+      '$_col_substatvalue double precision, '
       'primary key (artifact_id, substat_id) '
       ' )';
 

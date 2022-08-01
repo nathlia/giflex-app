@@ -26,11 +26,11 @@ class UserAccountPersistence {
         username varchar(255) not null constraint unique
     );
   */
-  static const createTableCharacter = ' CREATE TABLE $_tableName ('
+  static const createTableUserAccount = ' CREATE TABLE $_tableName ('
       '$_col_id integer not null primary key, '
       '$_col_name text, '
-      '$_col_username text not null constraint unique, '
-      '$_col_password text), '
+      '$_col_username text not null unique, '
+      '$_col_password text, '
       '$_col_token text'
       '$_col_is_admin boolean default false'
       ' )';
