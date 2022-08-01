@@ -39,6 +39,33 @@ class _ImagesState extends State<Images> {
                     width: 700,
                   ),
                 ),
+                Container(
+                  padding: const EdgeInsets.only(
+                      left: 5.0, top: 20, bottom: 20, right: 5.0),
+                  child: Image.asset(
+                    './assets/showcase/Xiao/2.png',
+                    height: 202,
+                    width: 700,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                      left: 5.0, top: 20, bottom: 20, right: 5.0),
+                  child: Image.asset(
+                    './assets/showcase/Xiao/3.png',
+                    height: 202,
+                    width: 700,
+                  ),
+                ),
+                Container(
+                  padding: const EdgeInsets.only(
+                      left: 5.0, top: 20, bottom: 20, right: 5.0),
+                  child: Image.asset(
+                    './assets/showcase/Xiao/4.png',
+                    height: 202,
+                    width: 700,
+                  ),
+                ),
               ]),
             ],
           ),

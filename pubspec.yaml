@@ -69,9 +69,9 @@ flutter:
     - assets/characters/
     - assets/showcase/
     - assets/showcase/Xiao/1.png
-    - assets/showcase/Xiao/2.jpg
-    - assets/showcase/Xiao/3.jpg
-    - assets/showcase/Xiao/4.jpg
+    - assets/showcase/Xiao/2.png
+    - assets/showcase/Xiao/3.png
+    - assets/showcase/Xiao/4.png
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
 
