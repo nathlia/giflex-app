@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:giflex_app/app-core/model/character.dart';
+import 'package:giflex_app/app-core/persistence/character_persistence.dart';
 import 'package:giflex_app/router.dart';
 
 class Home extends StatefulWidget {
@@ -10,6 +12,13 @@ class Home extends StatefulWidget {
 
   @override
   State<Home> createState() => _HomeState();
+}
+
+_initBanco() {
+  CharacterModel c = CharacterModel(
+      id: 1, name: 'Xiao', level: '90', critRate: '78.5', critDmg: '186.6');
+
+  CharacterPersistence().add(c);
 }
 
 class _HomeState extends State<Home> {
@@ -33,24 +42,29 @@ class _HomeState extends State<Home> {
               padding: const EdgeInsets.only(right: 15.0),
               width: MediaQuery.of(context).size.width - 30.0,
               height: MediaQuery.of(context).size.height - 50.0,
-              child: GridView.count(
-                crossAxisCount: 2,
-                primary: false,
-                crossAxisSpacing: 10.0,
-                mainAxisSpacing: 15.0,
-                childAspectRatio: 0.8,
-                children: <Widget>[
-                  _buildCard(name, './assets/characters/$name.png'),
-                  _buildCard(
-                    'Tartaglia',
-                    './assets/characters/Tartaglia.png',
-                  ),
-                  _buildCard('Albedo', './assets/characters/Albedo.png'),
-                  _buildCard('Diluc', './assets/characters/Diluc.png'),
-                  _buildCard('Zhongli', './assets/characters/Zhongli.png'),
-                  _buildCard('Kazuha', './assets/characters/Kazuha.png'),
-                ],
-              )),
+              child: Column(
+                children: [_initBanco(), _futureBuilderCharacter()],
+              )
+
+              // GridView.count(
+              //   crossAxisCount: 2,
+              //   primary: false,
+              //   crossAxisSpacing: 10.0,
+              //   mainAxisSpacing: 15.0,
+              //   childAspectRatio: 0.8,
+              //   children: <Widget>[
+              //     _buildCard(name, './assets/characters/$name.png'),
+              //     _buildCard(
+              //       'Tartaglia',
+              //       './assets/characters/Tartaglia.png',
+              //     ),
+              //     _buildCard('Albedo', './assets/characters/Albedo.png'),
+              //     _buildCard('Diluc', './assets/characters/Diluc.png'),
+              //     _buildCard('Zhongli', './assets/characters/Zhongli.png'),
+              //     _buildCard('Kazuha', './assets/characters/Kazuha.png'),
+              //   ],
+              // )
+              ),
           Column(
             children: <Widget>[
               Container(
@@ -91,6 +105,65 @@ class _HomeState extends State<Home> {
       ),
     );
   }
+}
+
+//* Gets Characters from Database *
+Widget _futureBuilderCharacter() {
+  return FutureBuilder<List<CharacterModel>>(
+    future: CharacterPersistence().getCharacters(),
+    builder: (context, snapshot) {
+      switch (snapshot.connectionState) {
+        case ConnectionState.none:
+          break;
+        case ConnectionState.waiting:
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: const <Widget>[
+                CircularProgressIndicator(),
+                Text('Loading'),
+              ],
+            ),
+          );
+        case ConnectionState.active:
+          break;
+        case ConnectionState.done:
+          final List<CharacterModel> characters =
+              snapshot.data as List<CharacterModel>;
+          return ListView.builder(
+            itemBuilder: (context, index) {
+              final CharacterModel c = characters[index];
+              String? name = c.name;
+              return Row(
+                children: [
+                  GridView.count(
+                    crossAxisCount: 2,
+                    primary: false,
+                    crossAxisSpacing: 10.0,
+                    mainAxisSpacing: 15.0,
+                    childAspectRatio: 0.8,
+                    children: <Widget>[
+                      _buildCard(name!, './assets/characters/$c.name.png'),
+                      // _buildCard(
+                      //   'Tartaglia',
+                      //   './assets/characters/Tartaglia.png',
+                      // ),
+                      // _buildCard('Albedo', './assets/characters/Albedo.png'),
+                      // _buildCard('Diluc', './assets/characters/Diluc.png'),
+                      // _buildCard('Zhongli', './assets/characters/Zhongli.png'),
+                      // _buildCard('Kazuha', './assets/characters/Kazuha.png'),
+                    ],
+                  )
+                ],
+              );
+            },
+            itemCount: characters.length,
+          );
+      }
+      return const Text('Error occurred trying to list Characters.');
+    },
+  );
 }
 
 Widget _buildCard(String name, String imgPath) {

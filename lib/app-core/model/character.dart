@@ -1,20 +1,21 @@
 import 'package:giflex_app/app-core/model/artifact.dart';
 
 class CharacterModel {
-  final int id;
-  final String name;
-  final String level;
-  final String critRate;
-  final String critDmg;
-  final ArtifactModel quippedArtifacts;
+  final int? id;
+  final String? name;
+  final String? level;
+  final String? critRate;
+  final String? critDmg;
+  //final ArtifactModel equippedArtifacts;
 
-  CharacterModel(
-      {required this.id,
-        required this.name,
-        required this.level,
-        required this.critRate,
-        required this.critDmg,
-        required this.quippedArtifacts});
+  CharacterModel({
+    this.id,
+    this.name,
+    this.level,
+    this.critRate,
+    this.critDmg,
+    //required this.equippedArtifacts
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -33,7 +34,7 @@ class CharacterModel {
       level: json['level'],
       critRate: json['critRate'],
       critDmg: json['critDmg'],
-      quippedArtifacts: json['quippedArtifacts'],
+      //equippedArtifacts: json['equippedArtifacts'],
     );
   }
 }

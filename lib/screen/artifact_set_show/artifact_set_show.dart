@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:giflex_app/app-core/model/artifact.dart';
 import 'package:giflex_app/app-core/model/artifact_set_type.dart';
+import 'package:giflex_app/app-core/model/character.dart';
+import 'package:giflex_app/app-core/persistence/character_persistence.dart';
 import 'package:giflex_app/router.dart';
 import 'package:giflex_app/screen/artifact/artifact.dart';
 
@@ -176,6 +178,81 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
           ),
         ]),
       ),
+    );
+  }
+
+  //* Gets Characters from Database *
+  Widget _futureBuilderCharacter() {
+    return FutureBuilder<List<CharacterModel>>(
+      future: CharacterPersistence().getCharacters(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+            break;
+          case ConnectionState.waiting:
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: const <Widget>[
+                  CircularProgressIndicator(),
+                  Text('Loading'),
+                ],
+              ),
+            );
+          case ConnectionState.active:
+            break;
+          case ConnectionState.done:
+            final List<CharacterModel> characters =
+                snapshot.data as List<CharacterModel>;
+            return ListView.builder(
+              itemBuilder: (context, index) {
+                final CharacterModel c = characters[index];
+                String? name = c.name;
+                return Row(
+                  children: [
+                    SizedBox(
+                      width: 166,
+                      child: _buildCard(
+                          name!, './assets/characters/${{c.name}}.png'),
+                    ),
+                    SizedBox(
+                      width: 216,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              Text("Level: $c.level",
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              const SizedBox(height: 15.0),
+                              Text("Crit Rate: $c.critRate",
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                              const SizedBox(height: 15.0),
+                              Text("Crit Dmg: $c.critDmg",
+                                  style: const TextStyle(
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold,
+                                  )),
+                            ],
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              },
+              itemCount: characters.length,
+            );
+        }
+        return const Text('Error occurred trying to list Characters.');
+      },
     );
   }
 
