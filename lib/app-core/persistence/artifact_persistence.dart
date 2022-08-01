@@ -34,7 +34,7 @@ class ArtifactPersistence {
       '$_col_is_equipped boolean'
       ' )';
 
-  Future<void> add(ArtifactModel a) async {
+  add(ArtifactModel a) async {
     log('Saving artifact: ${a.id}');
 
     final db = await getDatabase();
@@ -47,10 +47,9 @@ class ArtifactPersistence {
     final db = await getDatabase();
     final List<Map<String, dynamic>> maps = await db.query(_tableName);
 
-    List.generate(maps.length, (i) {
+    return List.generate(maps.length, (i) {
       return ArtifactModel.fromJson(maps[i]);
     });
-    throw Exception();
   }
 
   Future close() async {

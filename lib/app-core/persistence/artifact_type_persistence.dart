@@ -28,14 +28,13 @@ class ArtifactTypePersistence {
       "$_col_name text "
       " ) ";
 
-  Future<List<ArtifactSetTypeModel>> getArtifactType() async {
+  Future<List<ArtifactTypeModel>> getArtifactType() async {
     final db = await getDatabase();
     final List<Map<String, dynamic>> maps = await db.query(_tableName);
 
-    List.generate(maps.length, (i) {
+    return List.generate(maps.length, (i) {
       return ArtifactTypeModel.fromJson(maps[i]);
     });
-    throw Exception();
   }
 
   Future close() async {

@@ -28,7 +28,7 @@ class ArtifactSubstatPersistence {
       'primary key (artifact_id, substat_id) '
       ' )';
 
-  Future<void> add(ArtifactSubstatModel a) async {
+  add(ArtifactSubstatModel a) async {
     log('Saving substat to artifact: $_col_artifact_id');
     log('Saving substat: ${a.substat.name}');
     log('Saving substat value to artifact: ${a.substatValue}');
@@ -43,10 +43,9 @@ class ArtifactSubstatPersistence {
     final db = await getDatabase();
     final List<Map<String, dynamic>> maps = await db.query(_tableName);
 
-    List.generate(maps.length, (i) {
+    return List.generate(maps.length, (i) {
       return ArtifactSubstatModel.fromJson(maps[i]);
     });
-    throw Exception();
   }
 
   Future close() async {

@@ -35,7 +35,7 @@ class UserAccountPersistence {
       '$_col_is_admin boolean default false'
       ' )';
 
-  Future<void> add(UserAccountModel u) async {
+  add(UserAccountModel u) async {
     log('Saving character: ${u.username}');
 
     final db = await getDatabase();
@@ -48,10 +48,9 @@ class UserAccountPersistence {
     final db = await getDatabase();
     final List<Map<String, dynamic>> maps = await db.query(_tableName);
 
-    List.generate(maps.length, (i) {
+    return List.generate(maps.length, (i) {
       return UserAccountModel.fromJson(maps[i]);
     });
-    throw Exception();
   }
 
   Future close() async {
