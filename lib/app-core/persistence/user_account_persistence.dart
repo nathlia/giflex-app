@@ -36,7 +36,7 @@ class UserAccountPersistence {
       ' )';
 
   add(UserAccountModel u) async {
-    log('Saving character: ${u.username}');
+    log('Saving user: ${u.username}');
 
     final db = await getDatabase();
 

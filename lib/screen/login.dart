@@ -2,6 +2,8 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:giflex_app/app-core/service/character_service.dart';
+import 'package:giflex_app/app-core/service/user_account_service.dart';
 import 'package:giflex_app/router.dart';
 
 class Login extends StatelessWidget {
@@ -63,7 +65,21 @@ class Login extends StatelessWidget {
                             ),
                             onPressed: () {
                               log('Pressed');
-                              Modular.to.pushNamed('/home');
+                              bool ok = false;
+                              UserAccountService()
+                                  .login(username: "natty", password: "123"
+                                  ).then((response) {
+                                if (response) {
+                                  log(response.toString());
+
+                                  ok = true;
+                                  log(ok.toString());
+                                }
+                                log(ok.toString());
+                                if (ok == true) {
+                                  Modular.to.navigate('/home');
+                                }
+                              });
                             },
                             child: const Text('Login'),
                           ),

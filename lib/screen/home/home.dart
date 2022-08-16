@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:giflex_app/app-core/model/character.dart';
 import 'package:giflex_app/app-core/persistence/character_persistence.dart';
+import 'package:giflex_app/app-core/service/character_service.dart';
 import 'package:giflex_app/router.dart';
 
 class Home extends StatefulWidget {
