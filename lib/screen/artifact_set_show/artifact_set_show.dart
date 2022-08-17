@@ -144,7 +144,7 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
                         color: Palette.myColor[50],
                         height: 3,
                       ),
-                      Text("$mainStatValue",
+                      Text(" ${widget.character!.name}",
                           style: const TextStyle(
                             fontSize: 18.0,
                             fontWeight: FontWeight.bold,

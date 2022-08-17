@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+
 import 'package:giflex_app/app-core/model/user_account.dart';
 import 'package:giflex_app/app-core/persistence/user_account_persistence.dart';
 import 'package:giflex_app/app-core/service/api_service.dart';

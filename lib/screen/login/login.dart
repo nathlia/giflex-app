@@ -281,15 +281,11 @@ class Login extends StatelessWidget {
                                   // password: _password.text)
                                   .then((response) {
                                 if (response) {
-                                  log(response.toString());
-
                                   ok = true;
-                                  log(ok.toString());
-                                }
-                                log(ok.toString());
-                                if (ok == true) {
                                   Modular.to.navigate('/home');
                                 }
+                                log(ok.toString());
+                                if (ok == true) {}
                               });
                             },
                             child: const Text('Login'),

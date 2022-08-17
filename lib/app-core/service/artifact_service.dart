@@ -1,12 +1,13 @@
 import 'dart:convert';
 
+import 'package:giflex_app/app-core/model/artifact.dart';
 import 'package:giflex_app/app-core/model/character.dart';
-import 'package:giflex_app/app-core/persistence/character_persistence.dart';
+import 'package:giflex_app/app-core/persistence/artifact_persistence.dart';
 import 'package:giflex_app/app-core/service/api_service.dart';
 
-class CharacterService extends ApiService {
-  Future<List<CharacterModel>> getAllCharacters() async {
-    List<CharacterModel> characters = [];
+class ArtifactService extends ApiService {
+  Future<List<ArtifactModel>> getAllArtifacts() async {
+    List<ArtifactModel> artifacts = [];
 
     try {
       final response = await super.client?.get(
@@ -16,9 +17,9 @@ class CharacterService extends ApiService {
 
       if (response!.statusCode == 200) {
         Iterable list = jsonDecode(response.body);
-        characters = list.map((i) => CharacterModel.fromJson(i)).toList();
-        for (final c in characters) {
-          CharacterPersistence().add(c);
+        artifacts = list.map((i) => ArtifactModel.fromJson(i)).toList();
+        for (final a in artifacts) {
+          ArtifactPersistence().add(a);
         }
       } else {
         throw Exception('Could not list characters.\n${response.body}');
@@ -26,6 +27,6 @@ class CharacterService extends ApiService {
     } catch (e) {
       throw Exception(e);
     }
-    return characters;
+    return artifacts;
   }
 }

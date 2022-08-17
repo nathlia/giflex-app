@@ -13,7 +13,6 @@ class CharacterPersistence {
   static const String _col_level = 'level';
   static const String _col_critrate = 'critRate';
   static const String _col_critdmg = 'critDmg';
-
 /* 
 * character table from database:
   create table character ( id integer not null primary key, critdmg text, 

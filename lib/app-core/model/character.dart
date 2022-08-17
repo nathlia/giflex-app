@@ -6,16 +6,8 @@ class CharacterModel {
   final String? level;
   final String? critRate;
   final String? critDmg;
-  //final ArtifactModel equippedArtifacts;
 
-  CharacterModel({
-    this.id,
-    this.name,
-    this.level,
-    this.critRate,
-    this.critDmg,
-    //required this.equippedArtifacts
-  });
+  CharacterModel({this.id, this.name, this.level, this.critRate, this.critDmg});
 
   @override
   String toString() {
@@ -39,7 +31,6 @@ class CharacterModel {
       level: json['level'],
       critRate: json['critRate'],
       critDmg: json['critDmg'],
-      //equippedArtifacts: json['equippedArtifacts'],
     );
   }
 }
