@@ -41,42 +41,42 @@ class _HomeState extends State<Home> {
               width: MediaQuery.of(context).size.width - 30.0,
               height: MediaQuery.of(context).size.height - 50.0,
               child: _futureBuilderCharacter()),
-          Column(
-            children: <Widget>[
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 50.0),
-                width: double.infinity,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    elevation: 5,
-                  ),
-                  onPressed: () {
-                    log('Pressed');
-                    //int id = 1;
-                    Modular.to.pushNamed('/artifact-set-show');
-                  },
-                  child: const Text('Xiao'),
-                ),
-              )
-            ],
-          ),
-          Column(
-            children: <Widget>[
-              Container(
-                  padding: const EdgeInsets.symmetric(vertical: 50.0),
-                  width: double.infinity,
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        elevation: 5,
-                      ),
-                      onPressed: () {
-                        //onClickLogin(context);
-                        debugPrint('Pressed Login Simple');
-                        Modular.to.navigate('/home');
-                      },
-                      child: const Text('Login Simple')))
-            ],
-          )
+          // Column(
+          //   children: <Widget>[
+          //     Container(
+          //       padding: const EdgeInsets.symmetric(vertical: 50.0),
+          //       width: double.infinity,
+          //       child: ElevatedButton(
+          //         style: ElevatedButton.styleFrom(
+          //           elevation: 5,
+          //         ),
+          //         onPressed: () {
+          //           log('Pressed');
+          //           //int id = 1;
+          //           Modular.to.pushNamed('/artifact-set-show', );
+          //         },
+          //         child: const Text('Xiao'),
+          //       ),
+          //     )
+          //   ],
+          // ),
+          // Column(
+          //   children: <Widget>[
+          //     Container(
+          //         padding: const EdgeInsets.symmetric(vertical: 50.0),
+          //         width: double.infinity,
+          //         child: ElevatedButton(
+          //             style: ElevatedButton.styleFrom(
+          //               elevation: 5,
+          //             ),
+          //             onPressed: () {
+          //               //onClickLogin(context);
+          //               debugPrint('Pressed Login Simple');
+          //               Modular.to.navigate('/home');
+          //             },
+          //             child: const Text('Login Simple')))
+          //   ],
+          // )
         ],
       ),
     );
@@ -116,7 +116,7 @@ Widget _futureBuilderCharacter() {
                   final CharacterModel c = characters[index];
                   String? name = c.name;
                   log('$name');
-                  return _charactersTray(name!);
+                  return _charactersTray(c);
                 },
                 itemCount: characters.length,
               ))
@@ -128,7 +128,7 @@ Widget _futureBuilderCharacter() {
   );
 }
 
-Widget _charactersTray(String name) {
+Widget _charactersTray(CharacterModel character) {
   return GridView.count(
     shrinkWrap: true,
     crossAxisCount: 2,
@@ -136,17 +136,21 @@ Widget _charactersTray(String name) {
     crossAxisSpacing: 10.0,
     mainAxisSpacing: 15.0,
     childAspectRatio: 0.8,
-    children: <Widget>[_buildCard(name, './assets/characters/$name.png')],
+    children: <Widget>[
+      _buildCard(character, './assets/characters/${character.name}.png')
+    ],
   );
 }
 
-Widget _buildCard(String name, String imgPath) {
+Widget _buildCard(CharacterModel character, String imgPath) {
   return Padding(
       padding:
           const EdgeInsets.only(top: 10.0, bottom: 0.2, left: 5.0, right: 5.0),
       child: InkWell(
         onTap: () {
-          Modular.to.pushNamed('/artifact-set-show/');
+          Modular.to.pushNamed(
+              '/artifact-set-show/${character.name}/${character.id}',
+              arguments: character);
         },
         child: Container(
           decoration: BoxDecoration(
@@ -164,7 +168,7 @@ Widget _buildCard(String name, String imgPath) {
                   tag: imgPath,
                   child: Container(
                       height: 163.0,
-                      width: 256.0,
+                      width: 250.0,
                       decoration: BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage(imgPath),
@@ -180,7 +184,7 @@ Widget _buildCard(String name, String imgPath) {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        name,
+                        character.name!,
                         style: const TextStyle(
                           color: Colors.white,
                           fontSize: 24.0,

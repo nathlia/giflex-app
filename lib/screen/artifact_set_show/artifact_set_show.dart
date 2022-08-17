@@ -10,28 +10,22 @@ import 'package:giflex_app/router.dart';
 import 'package:giflex_app/screen/artifact/artifact.dart';
 
 class ArtifactSetShow extends StatefulWidget {
-  const ArtifactSetShow({Key? key}) : super(key: key);
+  final String? name;
+
+  final CharacterModel? character;
+
+  const ArtifactSetShow({Key? key, this.character, this.name})
+      : super(key: key);
 
   @override
   State<ArtifactSetShow> createState() => _ArtifactSetShowState();
 }
 
 class _ArtifactSetShowState extends State<ArtifactSetShow> {
-  String name = "Xiao";
-  int level = 90;
-  double critRate = 76.9;
-  double critDmg = 186.5;
-
-  // ArtifactSetTypeModel type = ArtifactSetTypeModel(
-  //     id: 1,
-  //     name: "Gladiators",
-  //     twopieces: "twopieces",
-  //     fourpieces: "fourpieces");
-
-  // ArtifactModel a1 =
-  //     ArtifactModel(1, "Flower",  artifactSetType: type, artifactType: null);
-  // ArtifactModel a2 =
-  //     ArtifactModel(2, "Plume", "Gladiator's Finale", "ATK", 4200);
+  // String name = "Xiao";
+  // int level = 90;
+  // double critRate = 76.9;
+  // double critDmg = 186.5;
 
   int id = 1;
   String artifactType = "Flower";
@@ -41,6 +35,7 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
 
   @override
   Widget build(BuildContext context) {
+    log(widget.name!);
     return Scaffold(
       backgroundColor: Palette.myColor[400],
       appBar: AppBar(
@@ -67,7 +62,8 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
                   children: <Widget>[
                     SizedBox(
                       width: 166,
-                      child: _buildCard(name, './assets/characters/$name.png'),
+                      child: _buildCard(widget.name!,
+                          './assets/characters/${widget.name}.png'),
                     ),
                     SizedBox(
                       width: 216,
@@ -76,19 +72,19 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
                         children: <Widget>[
                           Column(
                             children: <Widget>[
-                              Text("Level: $level",
+                              Text("Level: ${widget.character!.level}",
                                   style: const TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
                                   )),
                               const SizedBox(height: 15.0),
-                              Text("Crit Rate: $critRate",
+                              Text("Crit Rate: ${widget.character!.critRate}",
                                   style: const TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
                                   )),
                               const SizedBox(height: 15.0),
-                              Text("Crit Dmg: $critDmg",
+                              Text("Crit Dmg: ${widget.character!.critDmg}",
                                   style: const TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,

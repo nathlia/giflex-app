@@ -2,10 +2,13 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
+import 'package:giflex_app/app-core/model/character.dart';
 import 'package:giflex_app/router.dart';
 
 class EditCharacter extends StatefulWidget {
-  const EditCharacter({Key? key}) : super(key: key);
+  final CharacterModel? character;
+
+  const EditCharacter({Key? key, this.character}) : super(key: key);
 
   @override
   State<EditCharacter> createState() => _EditCharacterState();
