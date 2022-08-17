@@ -1,14 +1,21 @@
-import 'package:giflex_app/app-core/service/abstract_service.dart';
+import 'package:giflex_app/app-core/endpoints/endpoints.dart';
+import 'package:giflex_app/app-core/model/character.dart';
+import 'package:giflex_app/app-core/network/dio_client.dart';
+import 'package:giflex_app/app-core/service/api_service.dart';
+import 'package:giflex_app/app-core/service/locator.dart';
+import 'package:giflex_app/app-core/sharedpreference/shared_preference.dart';
 import 'package:http/http.dart' as http;
 
-class CharacterService extends AbstractService {
-  Future<http.Response> getCharacters() async {
-    Map<String, String> headersCliente = <String, String>{
-      'Content-Type': 'application/json',
-      'Authorization':
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJuYXR0eSIsImV4cCI6MTY2MDcxMTQ2OH0.iN8gHDUTQkaxSB5ErGt0ZgHby4q3EnHwismcedjUYfQ'
-    };
+class CharacterService {
+  final netWorkLocator = getIt.get<DioClient>();
+  final sharedPrefLocator = getIt.get<SharedPreferenceHelper>();
 
-    return http.get(Uri.parse('$API_REST/characters'), headers: headersCliente);
+  Future<List<CharacterModel>> getAllUCharacters() async {
+    final response = await netWorkLocator.dio.get(
+      '${EndPoints.baseUrl}${EndPoints.getAllCharacters}',
+    );
+    final data =
+        (response.data as List).map((e) => CharacterModel.fromJson(e)).toList();
+    return data;
   }
 }

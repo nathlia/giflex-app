@@ -14,9 +14,11 @@
         "Polearm",
         "Pyro",
         "Schyler",
+        "sharedpreference",
         "Shimenawa",
         "twopieces",
         "varchar",
         "Xiao"
-    ]
+    ],
+    "java.configuration.updateBuildConfiguration": "interactive"
 }

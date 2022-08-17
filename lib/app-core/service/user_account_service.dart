@@ -9,6 +9,8 @@ class UserAccountService extends AbstractService {
   Future<bool> login(
       {required String username, required String password}) async {
     log('dentro de usuario service + login');
+    log('username:$username');
+    log('password:$password');
 
     final content = json
         .encode(<String, String>{'username': username, 'password': password});
@@ -18,8 +20,8 @@ class UserAccountService extends AbstractService {
 
     if (response.statusCode == 200) {
       UserAccountModel u = UserAccountModel.fromJson(jsonDecode(response.body));
-      log(u.username);
-      log(u.token);
+      log(u.username.toString());
+      log(u.token.toString());
       UserAccountPersistence().add(u);
       return true;
     } else {

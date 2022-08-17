@@ -4,7 +4,7 @@ import 'package:giflex_app/screen/artifact_set_show/app_module_artifact_set_show
 import 'package:giflex_app/screen/character/app_module_character.dart';
 import 'package:giflex_app/screen/home/home.dart';
 import 'package:giflex_app/screen/images/app_module_images.dart';
-import 'package:giflex_app/screen/login.dart';
+import 'package:giflex_app/screen/login/login.dart';
 import 'package:giflex_app/screen/showcase/app_module_showcase.dart';
 
 class AppModule extends Module {

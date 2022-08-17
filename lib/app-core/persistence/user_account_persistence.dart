@@ -16,7 +16,7 @@ class UserAccountPersistence {
   static const String _col_is_admin = 'is_admin';
 
   /* 
-    * character table from database:
+    * character table database:
     create table useraccount (
         id integer not null primary key,
         is_admin boolean default false,
@@ -34,6 +34,8 @@ class UserAccountPersistence {
       '$_col_token text'
       '$_col_is_admin boolean default false'
       ' )';
+
+  static UserAccountModel? usuarioLogado;
 
   add(UserAccountModel u) async {
     log('Saving user: ${u.username}');
