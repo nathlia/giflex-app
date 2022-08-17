@@ -198,7 +198,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:giflex_app/app-core/service/character_service.dart';
-import 'package:giflex_app/app-core/service/user_account_service.dart';
+import 'package:giflex_app/app-core/service/login_service.dart';
 import 'package:giflex_app/router.dart';
 
 class Login extends StatelessWidget {
@@ -276,9 +276,9 @@ class Login extends StatelessWidget {
                               log('Pressed');
                               bool ok = false;
                               UserAccountService()
-                                  .login(
-                                      username: _username.text,
-                                      password: _password.text)
+                                  .login(username: "natty", password: "123")
+                                  // username: "_username.text",
+                                  // password: _password.text)
                                   .then((response) {
                                 if (response) {
                                   log(response.toString());

@@ -20,10 +20,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    CharacterModel c;
-    c = CharacterModel(
-        id: 1, name: 'Xiao', level: '90', critRate: '78.5', critDmg: '186.6');
-    CharacterPersistence().add(c);
+    // CharacterModel c;
+    // c = CharacterModel(
+    //     id: 1, name: 'Xiao', level: '90', critRate: '78.5', critDmg: '186.6');
+    // CharacterPersistence().add(c);
     return Scaffold(
       backgroundColor: Palette.myColor[400],
       appBar: AppBar(
@@ -86,7 +86,7 @@ class _HomeState extends State<Home> {
 //* Gets Characters from Database *
 Widget _futureBuilderCharacter() {
   return FutureBuilder<List<CharacterModel>>(
-    future: CharacterPersistence().getCharacters(),
+    future: CharacterService().getAllCharacters(),
     builder: (context, snapshot) {
       switch (snapshot.connectionState) {
         case ConnectionState.none:

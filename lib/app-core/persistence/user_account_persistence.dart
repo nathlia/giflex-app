@@ -35,7 +35,7 @@ class UserAccountPersistence {
       '$_col_is_admin boolean default false'
       ' )';
 
-  static UserAccountModel? usuarioLogado;
+  static UserAccountModel? loggedUser;
 
   add(UserAccountModel u) async {
     log('Saving user: ${u.username}');
@@ -44,6 +44,8 @@ class UserAccountPersistence {
 
     await db.insert(_tableName, u.toJson(),
         conflictAlgorithm: ConflictAlgorithm.replace);
+
+    loggedUser = u;
   }
 
   Future<List<UserAccountModel>> getUserAccounts() async {

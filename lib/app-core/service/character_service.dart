@@ -1,21 +1,27 @@
-import 'package:giflex_app/app-core/endpoints/endpoints.dart';
+import 'dart:convert';
+
 import 'package:giflex_app/app-core/model/character.dart';
-import 'package:giflex_app/app-core/network/dio_client.dart';
 import 'package:giflex_app/app-core/service/api_service.dart';
-import 'package:giflex_app/app-core/service/locator.dart';
-import 'package:giflex_app/app-core/sharedpreference/shared_preference.dart';
-import 'package:http/http.dart' as http;
 
-class CharacterService {
-  final netWorkLocator = getIt.get<DioClient>();
-  final sharedPrefLocator = getIt.get<SharedPreferenceHelper>();
+class CharacterService extends ApiService {
+  Future<List<CharacterModel>> getAllCharacters() async {
+    List<CharacterModel> characters = [];
 
-  Future<List<CharacterModel>> getAllUCharacters() async {
-    final response = await netWorkLocator.dio.get(
-      '${EndPoints.baseUrl}${EndPoints.getAllCharacters}',
-    );
-    final data =
-        (response.data as List).map((e) => CharacterModel.fromJson(e)).toList();
-    return data;
+    try {
+      final response = await super.client?.get(
+            Uri.parse('${super.baseUrl}/characters'),
+            headers: super.headers,
+          );
+
+      if (response!.statusCode == 200) {
+        Iterable list = jsonDecode(response.body);
+        characters = list.map((i) => CharacterModel.fromJson(i)).toList();
+      } else {
+        throw Exception('Could not list characters.\n${response.body}');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+    return characters;
   }
 }
