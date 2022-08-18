@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:giflex_app/app-core/model/character.dart';
 import 'package:giflex_app/app-core/persistence/character_persistence.dart';
@@ -29,9 +30,28 @@ class CharacterService extends ApiService {
     return characters;
   }
 
-  Future<String> edit(CharacterModel character) async {
-    String result;
+  Future<CharacterModel> getCharacter(int id) async {
+    CharacterModel character = CharacterModel();
 
+    try {
+      final response = await super.client?.get(
+            Uri.parse('${super.baseUrl}/characters/$id'),
+            headers: super.headers,
+          );
+
+      if (response!.statusCode == 200) {
+        character = CharacterModel.fromJson(json.decode(response.body));
+        log('selected Character:${character.name!}');
+      } else {
+        throw Exception('Falha ao buscar material ${response.body}');
+      }
+    } catch (e) {
+      throw Exception(e);
+    }
+    return character;
+  }
+
+  Future<String> edit(CharacterModel character) async {
     try {
       final response = await super.client?.put(
             Uri.parse('${super.baseUrl}/characters/${character.id}'),
@@ -39,12 +59,13 @@ class CharacterService extends ApiService {
             body: json.encode(character.toJson()),
             encoding: null,
           );
-
-      result = response!.body;
+      if (response!.statusCode == 200) {
+        return "Character edited with success!";
+      } else {
+        return "Could not edit character";
+      }
     } catch (e) {
       throw Exception(e);
     }
-
-    return "Character edited with success!";
   }
 }

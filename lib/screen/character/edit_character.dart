@@ -36,109 +36,105 @@ class _EditCharacterState extends State<EditCharacter> {
   Widget build(BuildContext context) {
     if (widget.character != null) {
       character = widget.character!;
-      _level.text = widget.character!.level!;
-      _critRate.text = widget.character!.critRate!;
-      _critDmg.text = widget.character!.critDmg!;
+
+      if (widget.character!.level != null) {
+        _level.text = widget.character!.level!;
+      }
+      if (widget.character!.critRate != null) {
+        _critRate.text = widget.character!.critRate!;
+      }
+      if (widget.character!.critDmg != null) {
+        _critDmg.text = widget.character!.critDmg!;
+      }
     }
-    return MaterialApp(
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSwatch(
-            brightness: Brightness.dark,
-            primarySwatch: Palette.myColor,
-          ).copyWith(
-            primary: Palette.myColor[50],
-            secondary: Palette.myColor[100],
-          ),
-          textTheme: const TextTheme(bodyText2: TextStyle(color: Colors.white)),
+    return Scaffold(
+        backgroundColor: Palette.myColor[400],
+        appBar: AppBar(
+          title: const Text('Edit Character'),
+          backgroundColor: Palette.myColor[300],
         ),
-        home: Scaffold(
-            backgroundColor: Palette.myColor[400],
-            appBar: AppBar(
-              title: const Text('Edit Character'),
-              backgroundColor: Palette.myColor[300],
-            ),
-            body: SingleChildScrollView(
-              child: Column(
-                //crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Form(
-                    key: _formKey,
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          padding: const EdgeInsets.only(
-                              top: 16.0, bottom: 70.0, left: 5.0, right: 5.0),
-                          child: SizedBox(
-                            width: 166,
-                            child: _buildCard(widget.name!,
-                                './assets/characters/${widget.name}.png'),
-                          ),
-                        ),
-                        const Text("Level:"),
-                        TextFormField(
-                          controller: _level,
-                          validator: (value) {
-                            return null;
-                          },
-                        ),
-                        const Text("Crit Rate: "),
-                        TextFormField(
-                          controller: _critRate,
-                          validator: (value) {
-                            return null;
-                          },
-                        ),
-                        const Text("Crit Dmg: "),
-                        TextFormField(
-                          controller: _critDmg,
-                          validator: (value) {
-                            return null;
-                          },
-                        ),
-                        Container(
-                          padding: const EdgeInsets.symmetric(vertical: 50.0),
-                          width: double.infinity,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              elevation: 5,
-                            ),
-                            onPressed: () {
-                              log('Pressed edit character');
-                              log('${widget.character!.id}');
-                              log('${widget.name}');
-                              log(_level.text);
-                              log(_critRate.text);
-                              log(_critDmg.text);
-
-                              if (_formKey.currentState!.validate()) {
-                                CharacterModel characterEdit = CharacterModel(
-                                    id: character.id,
-                                    name: widget.name,
-                                    level: _level.text,
-                                    critRate: _critRate.text,
-                                    critDmg: _critDmg.text);
-
-                                CharacterService()
-                                    .edit(characterEdit)
-                                    .then((value) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(content: Text(value)),
-                                  );
-                                  Modular.to.pushNamed(
-                                      '/artifact-set-show/${character.name}/${character.id}',
-                                      arguments: character);
-                                });
-                              }
-                            },
-                            child: const Text('Save'),
-                          ),
-                        )
-                      ],
+        body: SingleChildScrollView(
+          child: Column(
+            //crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Form(
+                key: _formKey,
+                child: Column(
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.only(
+                          top: 16.0, bottom: 70.0, left: 5.0, right: 5.0),
+                      child: SizedBox(
+                        width: 166,
+                        child: _buildCard(widget.name!,
+                            './assets/characters/${widget.name}.png'),
+                      ),
                     ),
-                  ),
-                ],
+                    const Text("Level:"),
+                    TextFormField(
+                      controller: _level,
+                      validator: (value) {
+                        return null;
+                      },
+                    ),
+                    const Text("Crit Rate: "),
+                    TextFormField(
+                      controller: _critRate,
+                      validator: (value) {
+                        return null;
+                      },
+                    ),
+                    const Text("Crit Dmg: "),
+                    TextFormField(
+                      controller: _critDmg,
+                      validator: (value) {
+                        return null;
+                      },
+                    ),
+                    Container(
+                      padding: const EdgeInsets.symmetric(vertical: 50.0),
+                      width: double.infinity,
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          elevation: 5,
+                        ),
+                        onPressed: () {
+                          log('Pressed edit character');
+                          log('${widget.character!.id}');
+                          log('${widget.name}');
+                          log(_level.text);
+                          log(_critRate.text);
+                          log(_critDmg.text);
+
+                          if (_formKey.currentState!.validate()) {
+                            CharacterModel characterEdit = CharacterModel(
+                                id: character.id,
+                                name: widget.name,
+                                level: _level.text,
+                                critRate: _critRate.text,
+                                critDmg: _critDmg.text);
+
+                            CharacterService()
+                                .edit(characterEdit)
+                                .then((value) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(content: Text(value)),
+                              );
+                              Modular.to.popAndPushNamed(
+                                  '/artifact-set-show/${character.name}/${character.id}',
+                                  arguments: character);
+                            });
+                          }
+                        },
+                        child: const Text('Save'),
+                      ),
+                    )
+                  ],
+                ),
               ),
-            )));
+            ],
+          ),
+        ));
   }
 }
 
@@ -147,9 +143,9 @@ Widget _buildCard(String name, String imgPath) {
       padding:
           const EdgeInsets.only(top: 6.0, bottom: 0.2, left: 5.0, right: 5.0),
       child: InkWell(
-        onTap: () {
-          Modular.to.pushNamed('/character/');
-        },
+        // onTap: () {
+        //   Modular.to.pushNamed('/character/');
+        // },
         child: Container(
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15.0),

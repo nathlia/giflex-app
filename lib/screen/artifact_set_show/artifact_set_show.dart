@@ -9,6 +9,7 @@ import 'package:giflex_app/app-core/model/character_artifact.dart';
 import 'package:giflex_app/app-core/persistence/character_persistence.dart';
 import 'package:giflex_app/app-core/service/artifact_service.dart';
 import 'package:giflex_app/app-core/service/character_artifact_service.dart';
+import 'package:giflex_app/app-core/service/character_service.dart';
 import 'package:giflex_app/router.dart';
 import 'package:giflex_app/screen/artifact/artifact.dart';
 
@@ -61,50 +62,13 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
                       '/character/${character.name}/${character.id}',
                       arguments: character);
                 },
-                child: Row(
-                  children: <Widget>[
-                    SizedBox(
-                      width: 166,
-                      child: _buildCard(widget.name!,
-                          './assets/characters/${widget.name}.png'),
-                    ),
-                    SizedBox(
-                      width: 216,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              Text("Level: ${widget.character!.level}",
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              const SizedBox(height: 15.0),
-                              Text("Crit Rate: ${widget.character!.critRate}",
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              const SizedBox(height: 15.0),
-                              Text("Crit Dmg: ${widget.character!.critDmg}",
-                                  style: const TextStyle(
-                                    fontSize: 20.0,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
+                child: _futureBuilderCharacter(),
               )),
-          Column(children: <Widget>[
-            // * ~~~ Artifacts ~~~ *
-            //_futureBuilderCharacterArtifact(),
-            // _futureBuilderArtifacts()
-          ]),
+          // Column(children: <Widget>[
+          //   // * ~~~ Artifacts ~~~ *
+          //   //_futureBuilderCharacterArtifact(),
+          //   // _futureBuilderArtifacts()
+          // ]),
           Column(
             children: <Widget>[
               Container(
@@ -127,108 +91,109 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
     );
   }
 
-  //* Gets Artifacts from Database *
-  Widget _futureBuilderArtifacts() {
-    return FutureBuilder<List<ArtifactModel>>(
-      future: ArtifactService().getAllArtifacts(),
-      builder: (context, snapshot) {
-        switch (snapshot.connectionState) {
-          case ConnectionState.none:
-            break;
-          case ConnectionState.waiting:
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: const <Widget>[
-                  CircularProgressIndicator(),
-                  Text('Loading'),
-                ],
-              ),
-            );
-          case ConnectionState.active:
-            break;
-          case ConnectionState.done:
-            final List<ArtifactModel> artifacts =
-                snapshot.data as List<ArtifactModel>;
-            return ListView.builder(
-              itemBuilder: (context, index) {
-                final ArtifactModel a = artifacts[index];
-                //String? name = a.name;
-                return Row(
-                  children: [
-                    Container(
-                      padding: const EdgeInsets.only(
-                          top: 16.0, bottom: 0.2, left: 5.0, right: 5.0),
-                      child: Text(":",
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ),
-                    // Container(
-                    //     width: 200.0,
-                    //     decoration: BoxDecoration(
-                    //         borderRadius: const BorderRadius.all(
-                    //           Radius.circular(15.0),
-                    //         ),
-                    //         color: Palette.myColor[300]),
-                    //     padding: const EdgeInsets.only(
-                    //         left: 5.0, right: 5.0, top: 10.0, bottom: 20.0),
-                    //     child: InkWell(
-                    //         onTap: () {
-                    //           Modular.to.pushNamed('/artifact/');
-                    //         },
-                    //         child: Column(
-                    //           children: <Widget>[
-                    //             Divider(
-                    //               color: Palette.myColor[50],
-                    //               height: 3,
-                    //             ),
-                    //             Text("${a.artifactSetType}",
-                    //                 style: const TextStyle(
-                    //                   fontSize: 18.0,
-                    //                   fontWeight: FontWeight.bold,
-                    //                 )),
-                    //             Divider(
-                    //               color: Palette.myColor[50],
-                    //               height: 3,
-                    //             ),
-                    //             Text('${a.mainstat}',
-                    //                 style: const TextStyle(
-                    //                   fontSize: 18.0,
-                    //                   fontWeight: FontWeight.bold,
-                    //                 )),
-                    //             Divider(
-                    //               color: Palette.myColor[50],
-                    //               height: 3,
-                    //             ),
-                    //             Text(" ${a.mainStatValue}",
-                    //                 style: const TextStyle(
-                    //                   fontSize: 18.0,
-                    //                   fontWeight: FontWeight.bold,
-                    //                 )),
-                    //             Divider(
-                    //               color: Palette.myColor[50],
-                    //               height: 3,
-                    //             ),
-                    //           ],
-                    //         ))),
-                  ],
-                );
-              },
-              itemCount: artifacts.length,
-            );
-        }
-        return const Text('Error occurred trying to list Artifacts.');
-      },
-    );
-  }
+  // //* Gets Artifacts from Database *
+  // Widget _futureBuilderArtifacts() {
+  //   return FutureBuilder<List<ArtifactModel>>(
+  //     future: ArtifactService().getAllArtifacts(),
+  //     builder: (context, snapshot) {
+  //       switch (snapshot.connectionState) {
+  //         case ConnectionState.none:
+  //           break;
+  //         case ConnectionState.waiting:
+  //           return Center(
+  //             child: Column(
+  //               mainAxisAlignment: MainAxisAlignment.center,
+  //               crossAxisAlignment: CrossAxisAlignment.center,
+  //               children: const <Widget>[
+  //                 CircularProgressIndicator(),
+  //                 Text('Loading'),
+  //               ],
+  //             ),
+  //           );
+  //         case ConnectionState.active:
+  //           break;
+  //         case ConnectionState.done:
+  //           final List<ArtifactModel> artifacts =
+  //               snapshot.data as List<ArtifactModel>;
+  //           return ListView.builder(
+  //             itemBuilder: (context, index) {
+  //               // final ArtifactModel a = artifacts[index];
+  //               //String? name = a.name;
+  //               return Row(
+  //                 children: [
+  //                   Container(
+  //                     padding: const EdgeInsets.only(
+  //                         top: 16.0, bottom: 0.2, left: 5.0, right: 5.0),
+  //                     child: const Text(":",
+  //                         style: TextStyle(
+  //                           fontSize: 20.0,
+  //                           fontWeight: FontWeight.bold,
+  //                         )),
+  //                   ),
 
-  //* Gets Character_Artifact from Database *
-  Widget _futureBuilderCharacterArtifact() {
-    return FutureBuilder<List<CharacterArtifact>>(
-      future: CharacterArtifactService().getAllCharacterArtifacts(),
+  //                   // Container(
+  //                   //     width: 200.0,
+  //                   //     decoration: BoxDecoration(
+  //                   //         borderRadius: const BorderRadius.all(
+  //                   //           Radius.circular(15.0),
+  //                   //         ),
+  //                   //         color: Palette.myColor[300]),
+  //                   //     padding: const EdgeInsets.only(
+  //                   //         left: 5.0, right: 5.0, top: 10.0, bottom: 20.0),
+  //                   //     child: InkWell(
+  //                   //         onTap: () {
+  //                   //           Modular.to.pushNamed('/artifact/');
+  //                   //         },
+  //                   //         child: Column(
+  //                   //           children: <Widget>[
+  //                   //             Divider(
+  //                   //               color: Palette.myColor[50],
+  //                   //               height: 3,
+  //                   //             ),
+  //                   //             Text("${a.artifactSetType}",
+  //                   //                 style: const TextStyle(
+  //                   //                   fontSize: 18.0,
+  //                   //                   fontWeight: FontWeight.bold,
+  //                   //                 )),
+  //                   //             Divider(
+  //                   //               color: Palette.myColor[50],
+  //                   //               height: 3,
+  //                   //             ),
+  //                   //             Text('${a.mainstat}',
+  //                   //                 style: const TextStyle(
+  //                   //                   fontSize: 18.0,
+  //                   //                   fontWeight: FontWeight.bold,
+  //                   //                 )),
+  //                   //             Divider(
+  //                   //               color: Palette.myColor[50],
+  //                   //               height: 3,
+  //                   //             ),
+  //                   //             Text(" ${a.mainStatValue}",
+  //                   //                 style: const TextStyle(
+  //                   //                   fontSize: 18.0,
+  //                   //                   fontWeight: FontWeight.bold,
+  //                   //                 )),
+  //                   //             Divider(
+  //                   //               color: Palette.myColor[50],
+  //                   //               height: 3,
+  //                   //             ),
+  //                   //           ],
+  //                   //         ))),
+  //                 ],
+  //               );
+  //             },
+  //             itemCount: artifacts.length,
+  //           );
+  //       }
+  //       return const Text('Error occurred trying to list Artifacts.');
+  //     },
+  //   );
+  // }
+
+  //* Get selected Character from Database *
+  Widget _futureBuilderCharacter() {
+    return FutureBuilder<CharacterModel>(
+      future: CharacterService().getCharacter(character.id!),
       builder: (context, snapshot) {
         switch (snapshot.connectionState) {
           case ConnectionState.none:
@@ -247,53 +212,63 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
           case ConnectionState.active:
             break;
           case ConnectionState.done:
-            final List<CharacterArtifact> characterArtifact =
-                snapshot.data as List<CharacterArtifact>;
+            final CharacterModel character = snapshot.data as CharacterModel;
             return ListView.builder(
               itemBuilder: (context, index) {
-                final CharacterArtifact ca = characterArtifact[index];
+                final CharacterModel c = character;
                 //String? name = a.name;
                 return Row(
                   children: [
                     Container(
-                      padding: const EdgeInsets.only(
-                          top: 16.0, bottom: 0.2, left: 5.0, right: 5.0),
-                      child: Text("${ca.characterId}",
-                          style: const TextStyle(
-                            fontSize: 20.0,
-                            fontWeight: FontWeight.bold,
-                          )),
-                    ),
-                    Container(
-                        width: 200.0,
-                        decoration: BoxDecoration(
-                            borderRadius: const BorderRadius.all(
-                              Radius.circular(15.0),
-                            ),
-                            color: Palette.myColor[300]),
                         padding: const EdgeInsets.only(
-                            left: 5.0, right: 5.0, top: 10.0, bottom: 20.0),
-                        child: InkWell(
-                            onTap: () {
-                              Modular.to.pushNamed('/artifact/');
-                            },
-                            child: Column(
-                              children: <Widget>[
-                                Divider(
-                                  color: Palette.myColor[50],
-                                  height: 3,
-                                ),
-                                Text("${ca.artifactId}",
-                                    style: const TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold,
-                                    )),
-                              ],
-                            ))),
+                            top: 6.0, bottom: 0.2, left: 1.0, right: 1.0),
+                        child: Row(
+                          children: <Widget>[
+                            SizedBox(
+                              width: 160,
+                              child: _buildCard(widget.name!,
+                                  './assets/characters/${c.name}.png'),
+                            ),
+                            SizedBox(
+                              width: 200,
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Column(
+                                    children: <Widget>[
+                                      if (c.level != null)
+                                        Text(
+                                          "Level: ${c.level}",
+                                          style: const TextStyle(
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold,
+                                          ),
+                                        ),
+                                      const SizedBox(height: 15.0),
+                                      if (c.critRate != null)
+                                        Text("Crit Rate: ${c.critRate}",
+                                            style: const TextStyle(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                      const SizedBox(height: 15.0),
+                                      if (c.critDmg != null)
+                                        Text("Crit Dmg: ${c.critDmg}",
+                                            style: const TextStyle(
+                                              fontSize: 20.0,
+                                              fontWeight: FontWeight.bold,
+                                            )),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ))
                   ],
                 );
               },
-              itemCount: characterArtifact.length,
+              itemCount: 1,
             );
         }
         return const Text('Error occurred trying to list Artifacts.');
@@ -306,10 +281,6 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
         padding:
             const EdgeInsets.only(top: 6.0, bottom: 0.2, left: 5.0, right: 5.0),
         child: InkWell(
-          onTap: () {
-            Modular.to.pushNamed('/character/${character.name}/${character.id}',
-                arguments: character);
-          },
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(15.0),
@@ -323,7 +294,7 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
             child: Column(
               children: [
                 Hero(
-                    tag: imgPath,
+                    tag: 1,
                     child: Container(
                         height: 156.0,
                         width: 256.0,
