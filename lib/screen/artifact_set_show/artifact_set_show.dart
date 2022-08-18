@@ -36,8 +36,11 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
   String mainstat = "HP";
   double mainStatValue = 2000;
 
+  late CharacterModel character;
+
   @override
   Widget build(BuildContext context) {
+    character = widget.character!;
     log(widget.name!);
     return Scaffold(
       backgroundColor: Palette.myColor[400],
@@ -60,7 +63,8 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
               child: InkWell(
                 onTap: () {
                   Modular.to.pushNamed(
-                      '/character/${widget.character!.name}/${widget.character!.id}, arguments: character}');
+                      '/character/${character.name}/${character.id}',
+                      arguments: character);
                 },
                 child: Row(
                   children: <Widget>[
@@ -308,7 +312,8 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
             const EdgeInsets.only(top: 6.0, bottom: 0.2, left: 5.0, right: 5.0),
         child: InkWell(
           onTap: () {
-            Modular.to.pushNamed('/character/');
+            Modular.to.pushNamed('/character/${character.name}/${character.id}',
+                arguments: character);
           },
           child: Container(
             decoration: BoxDecoration(

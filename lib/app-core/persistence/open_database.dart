@@ -13,7 +13,7 @@ import 'package:path/path.dart';
 
 Future<Database> getDatabase() async {
   log('opening DB connection');
-  return openDatabase(join(await getDatabasesPath(), 'giflex10.db'),
+  return openDatabase(join(await getDatabasesPath(), 'giflex12.db'),
       onCreate: (db, version) async {
     List<String> query = [
       CharacterPersistence.createTableCharacter,
@@ -31,5 +31,5 @@ Future<Database> getDatabase() async {
 
       db.execute(sql);
     }
-  }, version: 10);
+  }, version: 12);
 }

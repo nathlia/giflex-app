@@ -98,7 +98,7 @@ Widget _charactersTray(CharacterModel character) {
     crossAxisCount: 2,
     primary: false,
     crossAxisSpacing: 10.0,
-    mainAxisSpacing: 15.0,
+    mainAxisSpacing: 10.0,
     childAspectRatio: 0.8,
     children: <Widget>[
       _buildCard(character, './assets/characters/${character.name}.png')

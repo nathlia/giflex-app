@@ -28,4 +28,23 @@ class CharacterService extends ApiService {
     }
     return characters;
   }
+
+  Future<String> edit(CharacterModel character) async {
+    String result;
+
+    try {
+      final response = await super.client?.put(
+            Uri.parse('${super.baseUrl}/characters/${character.id}'),
+            headers: super.headers,
+            body: json.encode(character.toJson()),
+            encoding: null,
+          );
+
+      result = response!.body;
+    } catch (e) {
+      throw Exception(e);
+    }
+
+    return "Character edited with success!";
+  }
 }

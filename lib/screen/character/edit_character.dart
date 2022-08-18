@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 import 'package:giflex_app/app-core/model/character.dart';
+import 'package:giflex_app/app-core/service/character_service.dart';
 import 'package:giflex_app/router.dart';
 
 class EditCharacter extends StatefulWidget {
@@ -17,8 +18,16 @@ class EditCharacter extends StatefulWidget {
 
 class _EditCharacterState extends State<EditCharacter> {
   final _formKey = GlobalKey<FormState>();
+  final _level = TextEditingController();
+  final _critRate = TextEditingController();
+  final _critDmg = TextEditingController();
+
+  late CharacterModel character;
+
   @override
   Widget build(BuildContext context) {
+    log(widget.character!.toString());
+    character = widget.character!;
     return MaterialApp(
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(
@@ -44,33 +53,33 @@ class _EditCharacterState extends State<EditCharacter> {
                     key: _formKey,
                     child: Column(
                       children: <Widget>[
-                        Text("Level: ${widget.character!.level}"),
+                        Container(
+                          padding: const EdgeInsets.only(
+                              top: 16.0, bottom: 70.0, left: 5.0, right: 5.0),
+                          child: SizedBox(
+                            width: 166,
+                            child: _buildCard(widget.name!,
+                                './assets/characters/${widget.name}.png'),
+                          ),
+                        ),
+                        Text("Level:"),
                         TextFormField(
+                          controller: _level,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please input a value';
-                            }
-                            // emailUser = value;
                             return null;
                           },
                         ),
-                        Text("Crit Rate: ${widget.character!.critRate}"),
+                        Text("Crit Rate: "),
                         TextFormField(
+                          controller: _critRate,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please input a value';
-                            }
-
                             return null;
                           },
                         ),
-                        Text("Crit Dmg: ${widget.character!.critDmg}"),
+                        Text("Crit Dmg: "),
                         TextFormField(
+                          controller: _critDmg,
                           validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Please input a value';
-                            }
-
                             return null;
                           },
                         ),
@@ -82,9 +91,32 @@ class _EditCharacterState extends State<EditCharacter> {
                               elevation: 5,
                             ),
                             onPressed: () {
-                              log('Pressed');
-                              Modular.to.navigate(
-                                  '/artifact-set-show/${widget.character!.name}/${widget.character!.id}, arguments: character ');
+                              log('Pressed edit character');
+                              log('${widget.character!.id}');
+                              log('${widget.name}');
+                              log(_level.text);
+                              log(_critRate.text);
+                              log(_critDmg.text);
+
+                              if (_formKey.currentState!.validate()) {
+                                CharacterModel characterEdit = CharacterModel(
+                                    id: character.id,
+                                    name: widget.name,
+                                    level: _level.text,
+                                    critRate: _critRate.text,
+                                    critDmg: _critDmg.text);
+
+                                CharacterService()
+                                    .edit(characterEdit)
+                                    .then((value) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(content: Text(value)),
+                                  );
+                                  Modular.to.pushNamed(
+                                      '/artifact-set-show/${character.name}/${character.id}',
+                                      arguments: character);
+                                });
+                              }
                             },
                             child: const Text('Save'),
                           ),
@@ -97,6 +129,63 @@ class _EditCharacterState extends State<EditCharacter> {
             )));
   }
 }
+
+Widget _buildCard(String name, String imgPath) {
+  return Padding(
+      padding:
+          const EdgeInsets.only(top: 6.0, bottom: 0.2, left: 5.0, right: 5.0),
+      child: InkWell(
+        onTap: () {
+          Modular.to.pushNamed('/character/');
+        },
+        child: Container(
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15.0),
+              boxShadow: [
+                BoxShadow(
+                    color: Palette.myColor.withOpacity(0.2),
+                    spreadRadius: 3.0,
+                    blurRadius: 5.0)
+              ],
+              color: Palette.myColor[700]),
+          child: Column(
+            children: [
+              Hero(
+                  tag: imgPath,
+                  child: Container(
+                      height: 156.0,
+                      width: 256.0,
+                      decoration: BoxDecoration(
+                          image: DecorationImage(
+                              image: AssetImage(imgPath),
+                              fit: BoxFit.contain)))),
+              Container(
+                decoration: BoxDecoration(
+                    borderRadius: const BorderRadius.only(
+                        bottomLeft: Radius.circular(15.0),
+                        bottomRight: Radius.circular(15.0)),
+                    color: Palette.myColor[600]),
+                padding: const EdgeInsets.all(8),
+                child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text(
+                        name,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 24.0,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      )
+                    ]),
+              ),
+            ],
+          ),
+        ),
+      ));
+}
+
+
 
 // class EditCharacter extends StatelessWidget {
 //   const EditCharacter({Key? key}) : super(key: key);
