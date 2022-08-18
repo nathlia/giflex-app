@@ -6,9 +6,10 @@ import 'package:giflex_app/app-core/model/character.dart';
 import 'package:giflex_app/router.dart';
 
 class EditCharacter extends StatefulWidget {
+  final String? name;
   final CharacterModel? character;
 
-  const EditCharacter({Key? key, this.character}) : super(key: key);
+  const EditCharacter({Key? key, this.character, this.name}) : super(key: key);
 
   @override
   State<EditCharacter> createState() => _EditCharacterState();
@@ -43,7 +44,7 @@ class _EditCharacterState extends State<EditCharacter> {
                     key: _formKey,
                     child: Column(
                       children: <Widget>[
-                        const Text("Level: "),
+                        Text("Level: ${widget.character!.level}"),
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -53,7 +54,7 @@ class _EditCharacterState extends State<EditCharacter> {
                             return null;
                           },
                         ),
-                        const Text("Crit Rate: "),
+                        Text("Crit Rate: ${widget.character!.critRate}"),
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -63,7 +64,7 @@ class _EditCharacterState extends State<EditCharacter> {
                             return null;
                           },
                         ),
-                        const Text("Crit Dmg: "),
+                        Text("Crit Dmg: ${widget.character!.critDmg}"),
                         TextFormField(
                           validator: (value) {
                             if (value == null || value.isEmpty) {
@@ -82,7 +83,8 @@ class _EditCharacterState extends State<EditCharacter> {
                             ),
                             onPressed: () {
                               log('Pressed');
-                              Modular.to.navigate('/artifact-set-show');
+                              Modular.to.navigate(
+                                  '/artifact-set-show/${widget.character!.name}/${widget.character!.id}, arguments: character ');
                             },
                             child: const Text('Save'),
                           ),

@@ -10,6 +10,11 @@ class AppModuleArtifactSetShow extends Module {
                   name: args.params['name'],
                   character: args.data,
                 )),
+        ChildRoute('/:name/:id',
+            child: (context, args) => EditCharacter(
+                  name: args.params['name'],
+                  character: args.data,
+                )),
         // ChildRoute('/:charaId/:name/:artId/edit', child: (context, args) => const Home()),
         // ModuleRoute('/character', module: AppModuleCharacter()),
       ];

@@ -59,7 +59,8 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
               height: 211,
               child: InkWell(
                 onTap: () {
-                  Modular.to.pushNamed('/character/');
+                  Modular.to.pushNamed(
+                      '/character/${widget.character!.name}/${widget.character!.id}, arguments: character}');
                 },
                 child: Row(
                   children: <Widget>[
