@@ -266,8 +266,9 @@ class Login extends StatelessWidget {
                           },
                         ),
                         Container(
-                          padding: const EdgeInsets.symmetric(vertical: 50.0),
-                          width: double.infinity,
+                          padding: const EdgeInsets.symmetric(vertical: 56.0),
+                          width: 200,
+                          height: 160,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               elevation: 5,

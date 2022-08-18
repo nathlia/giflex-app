@@ -41,42 +41,6 @@ class _HomeState extends State<Home> {
               width: MediaQuery.of(context).size.width - 30.0,
               height: MediaQuery.of(context).size.height - 50.0,
               child: _futureBuilderCharacter()),
-          // Column(
-          //   children: <Widget>[
-          //     Container(
-          //       padding: const EdgeInsets.symmetric(vertical: 50.0),
-          //       width: double.infinity,
-          //       child: ElevatedButton(
-          //         style: ElevatedButton.styleFrom(
-          //           elevation: 5,
-          //         ),
-          //         onPressed: () {
-          //           log('Pressed');
-          //           //int id = 1;
-          //           Modular.to.pushNamed('/artifact-set-show', );
-          //         },
-          //         child: const Text('Xiao'),
-          //       ),
-          //     )
-          //   ],
-          // ),
-          // Column(
-          //   children: <Widget>[
-          //     Container(
-          //         padding: const EdgeInsets.symmetric(vertical: 50.0),
-          //         width: double.infinity,
-          //         child: ElevatedButton(
-          //             style: ElevatedButton.styleFrom(
-          //               elevation: 5,
-          //             ),
-          //             onPressed: () {
-          //               //onClickLogin(context);
-          //               debugPrint('Pressed Login Simple');
-          //               Modular.to.navigate('/home');
-          //             },
-          //             child: const Text('Login Simple')))
-          //   ],
-          // )
         ],
       ),
     );

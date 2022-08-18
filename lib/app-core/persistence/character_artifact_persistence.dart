@@ -30,8 +30,8 @@ class CharacterArtifactPersistence {
   }
 
   static const createTableArtifactSubstat = ' CREATE TABLE $_tableName ('
-      '$_col_character_id integer not null, '
-      '$_col_artifact_id integer not null, '
+      '$_col_character_id integer, '
+      '$_col_artifact_id integer , '
       'primary key (artifact_id, substat_id) '
       ' )';
 

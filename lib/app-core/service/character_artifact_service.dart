@@ -4,7 +4,7 @@ import 'package:giflex_app/app-core/model/character_artifact.dart';
 import 'package:giflex_app/app-core/persistence/character_artifact_persistence.dart';
 import 'package:giflex_app/app-core/service/api_service.dart';
 
-class CharacterService extends ApiService {
+class CharacterArtifactService extends ApiService {
   Future<List<CharacterArtifact>> getAllCharacterArtifacts() async {
     List<CharacterArtifact> characterArtifacts = [];
 

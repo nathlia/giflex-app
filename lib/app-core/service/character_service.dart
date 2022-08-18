@@ -15,7 +15,7 @@ class CharacterService extends ApiService {
           );
 
       if (response!.statusCode == 200) {
-        Iterable list = jsonDecode(response.body);
+        Iterable list = json.decode(response.body);
         characters = list.map((i) => CharacterModel.fromJson(i)).toList();
         for (final c in characters) {
           CharacterPersistence().add(c);

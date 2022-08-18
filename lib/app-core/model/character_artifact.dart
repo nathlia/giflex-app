@@ -14,10 +14,9 @@ class CharacterArtifact {
     };
   }
 
-  factory CharacterArtifact.fromJson(Map<String, dynamic> json) {
-    return CharacterArtifact(
-      characterId: json['characterId'],
-      artifactId: json['artifactId'],
-    );
-  }
+  factory CharacterArtifact.fromJson(Map<String, dynamic> json) =>
+      CharacterArtifact(
+        characterId: CharacterModel.fromJson(json['characterId']),
+        artifactId: ArtifactModel.fromJson(json['artifactId']),
+      );
 }
