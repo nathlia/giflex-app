@@ -25,11 +25,6 @@ class ArtifactSetShow extends StatefulWidget {
 }
 
 class _ArtifactSetShowState extends State<ArtifactSetShow> {
-  // String name = "Xiao";
-  // int level = 90;
-  // double critRate = 76.9;
-  // double critDmg = 186.5;
-
   int id = 1;
   String artifactType = "Flower";
   String artifactSetType = "Gladiator's Finale";

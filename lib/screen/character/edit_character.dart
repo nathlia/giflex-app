@@ -25,9 +25,21 @@ class _EditCharacterState extends State<EditCharacter> {
   late CharacterModel character;
 
   @override
+  void dispose() {
+    super.dispose();
+    _level.dispose();
+    _critRate.dispose();
+    _critDmg.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    log(widget.character!.toString());
-    character = widget.character!;
+    if (widget.character != null) {
+      character = widget.character!;
+      _level.text = widget.character!.level!;
+      _critRate.text = widget.character!.critRate!;
+      _critDmg.text = widget.character!.critDmg!;
+    }
     return MaterialApp(
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch(
@@ -62,21 +74,21 @@ class _EditCharacterState extends State<EditCharacter> {
                                 './assets/characters/${widget.name}.png'),
                           ),
                         ),
-                        Text("Level:"),
+                        const Text("Level:"),
                         TextFormField(
                           controller: _level,
                           validator: (value) {
                             return null;
                           },
                         ),
-                        Text("Crit Rate: "),
+                        const Text("Crit Rate: "),
                         TextFormField(
                           controller: _critRate,
                           validator: (value) {
                             return null;
                           },
                         ),
-                        Text("Crit Dmg: "),
+                        const Text("Crit Dmg: "),
                         TextFormField(
                           controller: _critDmg,
                           validator: (value) {
