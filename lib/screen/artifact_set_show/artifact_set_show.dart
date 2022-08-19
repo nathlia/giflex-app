@@ -80,8 +80,9 @@ class _ArtifactSetShowState extends State<ArtifactSetShow> {
                       ),
                       onPressed: () {
                         //onClickLogin(context);
-                        debugPrint('Artifact');
-                        Modular.to.pushNamed('/images/');
+                        Modular.to.pushNamed(
+                            '/images/${character.name}/${character.id}',
+                            arguments: character);
                       },
                       child: const Text('Create Showcase')))
             ],

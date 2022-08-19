@@ -2,26 +2,23 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:giflex_app/app-core/model/artifact.dart';
+import 'package:giflex_app/app-core/model/character.dart';
 import 'package:giflex_app/router.dart';
 
 class Showcase extends StatefulWidget {
-  const Showcase({Key? key}) : super(key: key);
+  final String? name;
+  final CharacterModel? character;
+  final String? id;
+  const Showcase({Key? key, this.character, this.name, this.id})
+      : super(key: key);
 
   @override
   State<Showcase> createState() => _ShowcaseState();
 }
 
 class _ShowcaseState extends State<Showcase> {
-  String name = "Xiao";
-  int level = 90;
-  double critRate = 76.9;
-  double critDmg = 186.5;
-
-  // ArtifactModel a1 =
-  //     ArtifactModel(1, "Flower", "Gladiator's Finale", "HP", 2000);
-  // ArtifactModel a2 =
-  //     ArtifactModel(2, "Plume", "Gladiator's Finale", "ATK", 4200);
+  late CharacterModel character;
+  late String imageId;
 
   int id = 1;
   String artifactType = "Flower";
@@ -30,6 +27,8 @@ class _ShowcaseState extends State<Showcase> {
   double mainStatValue = 2000;
   @override
   Widget build(BuildContext context) {
+    character = widget.character!;
+    imageId = widget.id!;
     return Scaffold(
         backgroundColor: Palette.myColor[400],
         appBar: AppBar(
@@ -45,7 +44,7 @@ class _ShowcaseState extends State<Showcase> {
                     padding: const EdgeInsets.only(
                         left: 5.0, top: 20, bottom: 20, right: 5.0),
                     child: Image.asset(
-                      './assets/showcase/$name/1.png',
+                      './assets/showcase/${character.name}/$imageId.png',
                       height: 202,
                       width: 700,
                     ),
@@ -60,19 +59,19 @@ class _ShowcaseState extends State<Showcase> {
                         children: <Widget>[
                           Column(
                             children: <Widget>[
-                              Text("Level: $level",
+                              Text("Level: ${character.level}",
                                   style: const TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
                                   )),
                               const SizedBox(height: 15.0),
-                              Text("Crit Rate: $critRate",
+                              Text("Crit Rate: ${character.critRate}",
                                   style: const TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
                                   )),
                               const SizedBox(height: 15.0),
-                              Text("Crit Dmg: $critDmg",
+                              Text("Crit Dmg: ${character.critDmg}",
                                   style: const TextStyle(
                                     fontSize: 20.0,
                                     fontWeight: FontWeight.bold,
@@ -89,7 +88,7 @@ class _ShowcaseState extends State<Showcase> {
                 Container(
                   padding: const EdgeInsets.only(
                       top: 16.0, bottom: 0.2, left: 5.0, right: 5.0),
-                  child: Text("${artifactType} :",
+                  child: Text("$artifactType :",
                       style: const TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
@@ -162,58 +161,3 @@ class _ShowcaseState extends State<Showcase> {
         ));
   }
 }
-
-// class Showcase extends StatelessWidget {
-//   const Showcase({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//         appBar: AppBar(
-//           title: const Text('Artifact Set Show'),
-//         ),
-//         body: SingleChildScrollView(
-//           child: Column(
-//             //crossAxisAlignment: CrossAxisAlignment.center,
-//             children: <Widget>[
-//               Column(
-//                 children: <Widget>[
-//                   Container(
-//                     padding: const EdgeInsets.symmetric(vertical: 50.0),
-//                     width: double.infinity,
-//                     child: ElevatedButton(
-//                       style: ElevatedButton.styleFrom(
-//                         elevation: 5,
-//                       ),
-//                       onPressed: () {
-//                         log('Pressed');
-//                         //int id = 1;
-//                         //Modular.to.pushNamed('/character');
-//                       },
-//                       child: const Text('Download'),
-//                     ),
-//                   )
-//                 ],
-//               ),
-//               Column(
-//                 children: <Widget>[
-//                   Container(
-//                       padding: const EdgeInsets.symmetric(vertical: 50.0),
-//                       width: double.infinity,
-//                       child: ElevatedButton(
-//                           style: ElevatedButton.styleFrom(
-//                             elevation: 5,
-//                           ),
-//                           onPressed: () {
-//                             //onClickLogin(context);
-//                             debugPrint('Artifact');
-//                             Modular.to.navigate('/images');
-//                           },
-//                           child: const Text('Back')))
-//                 ],
-//               ),
-//             ],
-//           ),
-//         ));
-//   }
-// }
