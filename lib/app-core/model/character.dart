@@ -1,14 +1,10 @@
-import 'dart:developer';
-
-import 'package:giflex_app/app-core/model/artifact.dart';
-
 class CharacterModel {
   final int? id;
   final String? name;
   final String? level;
   final String? critRate;
   final String? critDmg;
-  //final List<ArtifactModel>? equippedArtifacts;
+  // final List<EquippedArtifact>? equippedArtifacts;
 
   CharacterModel({
     this.id,
@@ -16,7 +12,7 @@ class CharacterModel {
     this.level,
     this.critRate,
     this.critDmg,
-    //this.equippedArtifacts,
+    // this.equippedArtifacts,
   });
 
   @override
@@ -31,15 +27,15 @@ class CharacterModel {
       'level': level,
       'critRate': critRate,
       'critDmg': critDmg,
-      //'equippedArtifacts': equippedArtifacts,
+      // 'equippedArtifacts': equippedArtifacts,
     };
   }
 
   factory CharacterModel.fromJson(Map<String, dynamic> json) {
-    // var list = json['equippedArtifacts'] as List<Map<String, dynamic>>;
+    // var list = json['equippedArtifacts'] as List;
     // log(list.runtimeType.toString());
-    // List<ArtifactModel> equippedArtifactsList =
-    //     list.map((i) => ArtifactModel.fromJson(i)).toList();
+    // List<EquippedArtifact> equippedArtifactsList =
+    // list.map((i) => EquippedArtifact.fromJson(i)).toList();
 
     return CharacterModel(
       id: json['id'],
@@ -47,7 +43,41 @@ class CharacterModel {
       level: json['level'],
       critRate: json['critRate'],
       critDmg: json['critDmg'],
-      //equippedArtifacts: equippedArtifactsList,
+      // equippedArtifacts: equippedArtifactsList,
     );
   }
 }
+
+// class EquippedArtifact {
+//   final String? key;
+//   final List<ArtifactModel>? value;
+
+//   EquippedArtifact({
+//     this.key,
+//     this.value,
+//   });
+
+//   @override
+//   String toString() {
+//     return 'CharacterModel(key: $key, value: $value';
+//   }
+
+//   Map<String, dynamic> toJson() {
+//     return {
+//       'key': key,
+//       'value': value,
+//     };
+//   }
+
+//   factory EquippedArtifact.fromJson(Map<String, dynamic> json) {
+//     var list = json['equippedArtifacts'] as List;
+//     log(list.runtimeType.toString());
+//     List<ArtifactModel> value =
+//         list.map((i) => ArtifactModel.fromJson(i)).toList();
+
+//     return EquippedArtifact(
+//       key: json['key'],
+//       value: value,
+//     );
+//   }
+// }
